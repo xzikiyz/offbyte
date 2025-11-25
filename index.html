@@ -6,8 +6,10 @@
   <title>Off Byte</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-yellow-50">
 
+  
   <!-- NAVBAR -->
   <nav class="bg-white shadow-lg fixed w-full top-0 z-10 h-16">
     <div class="max-w-7xl mx-auto px-4">
@@ -25,9 +27,9 @@
           <a href="#" class="text-gray-600 hover:text-blue-600 transition">Mech Product</a>
           <a href="#" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
         </div>
-
-        <div class="relative hidden md:block">
-          <a href="cart.php" class="text-gray-700">
+        
+        <!-- Button untuk cart samoing kanan -->
+        <div id="cart-button" class="relative hidden md:block cursor-pointer text-gray-700">
             <svg xmlns="http://www.w3.org/2000/svg" 
                 fill="none" viewBox="0 0 24 24" 
                 stroke-width="1.5" stroke="currentColor" 
@@ -44,10 +46,16 @@
               </svg>
           </a>
 
-          <span class="absolute -top-1 -right-1 bg-red-600 text-white text-xs px-1.5 py-0.5 rounded-full">3</span>
+          <!-- fungsi untuk angka 0 yang akan bertambah di keranjang -->
+          <span id="cart-badge"
+        class="absolute -top-1 -right-2 bg-red-500 
+               text-white text-xs font-bold rounded-full 
+               h-4 w-4 flex items-center justify-center">
+        0
+    </span>
         </div>
 
-        <!-- Hamburger -->
+        <!-- Hamburger mobile view-->
          <div class="mb-hidden">
           <button id="menu-btn" class="text-gray-800 text-3xl">
              ☰
@@ -55,6 +63,7 @@
          </div>
       </div>
     </div>
+
     <!-- Menu (Mobile) -->
      <div id="mobile-menu" class="hidden md:hidden bg-white px-4 pb-4">
         <a href="#" class="block py-2 border-b"> Home </a>
@@ -64,6 +73,71 @@
      </div>
   </nav>
 
+  <!-- fungsi untuk keranjang  -->
+  <div id="mini-cart" 
+     class="hidden absolute right-5 top-20 w-72 bg-white shadow-xl rounded-xl p-4 z-50 max-h-80 overflow-y-auto">
+  <h3 class="text-lg font-semibold mb-2">Keranjang</h3>
+  <div id="mini-cart-items" class="space-y-2"></div>
+
+  <a href="cart.php" 
+     class="block mt-3 text-center bg-blue-500 text-white py-2 rounded-lg">
+     Lihat Keranjang
+  </a>
+</div>
+
+<!-- script untuk mini cart -->
+<script>
+  const miniCart = document.getElementById('mini-cart');
+  const miniCartItems = document.getElementById('mini-cart-items');
+  const cartButton = document.getElementById('cart-button');
+
+  // Toggle dropdown
+  cartButton.addEventListener('click', () => {
+    miniCart.classList.toggle('hidden');
+    loadMiniCartItems();
+  });
+
+  // Load item dari localStorage
+  function loadMiniCartItems() {
+    miniCartItems.innerHTML = "";
+
+    if (cartItems.length === 0) {
+      miniCartItems.innerHTML = "<p class='text-sm text-gray-500'>Keranjang kosong</p>";
+      return;
+    }
+
+    cartItems.forEach((item, index) => {
+      const div = document.createElement("div");
+      div.className = "flex justify-between items-center bg-gray-100 p-2 rounded";
+
+      div.innerHTML = `
+        <span class="text-sm font-medium">${item}</span>
+        <button class="text-red-500 text-xs" onclick="removeItem(${index})">Hapus</button>
+      `;
+
+      miniCartItems.appendChild(div);
+    });
+  }
+
+  // Hapus item
+  function removeItem(i) {
+    cartItems.splice(i, 1);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    updateCartBadge();
+    loadMiniCartItems();
+  }
+
+  // Klik luar → tutup dropdown
+  document.addEventListener("click", (e) => {
+    if (!miniCart.contains(e.target) && !cartButton.contains(e.target)) {
+      miniCart.classList.add("hidden");
+    }
+  });
+</script>
+
+
+
+  <!-- script untuk menu dropdown mobile-menu -->
   <script>
     const btn = document.getElementById("menu-btn");
     const menu = document.getElementById("mobile-menu");
@@ -73,7 +147,8 @@
     });
   </script>
 
-  <<section class="relative w-[1500px] h-[600px] mt-14 mx-auto">
+  <!-- section unttuk jumbotron -->
+  <section class="relative w-[1500px] h-[600px] mt-14 mx-auto">
   <!-- Background Image -->
       <img src="app/img/lagi.jpg" alt="Hero Image" class="w-full h-full object-cover">
 
@@ -88,43 +163,167 @@
           Lihat Produk
         </a>
       </div>
-</section>
+    </section>
+    <!-- akhir dari jumbotron -->
 
+    <!-- section pilihan setelah jumbotron -->
     <section class="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-6">
       <a href="#photobooth" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
-        <img src="app/img/logo.png" alt="Photobooth" class="w-full h-48 object-cover">
+        <img src="app/img/kamera.png" alt="Photobooth" class="mx-auto max-w-[120px] h-48 object-cover">
         <div class="p-4 text-center">
           <h3 class="text-lg font semi-bold"> Photobooth </h3>
         </div>
       </a>
 
       <a href="#CreativeMerch" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
-        <img src="app/img/logo.png" alt="Creative Merch" class="w-full h-48 object-cover">
+        <img src="app/img/merch.png" alt="Creative Merch" class="mx-auto max-w-[150px] h-48 object-cover">
         <div class="p-4 text-center">
           <h3 class="text-lg font semi-bold"> Creative Merch </h3>
         </div>
       </a>
 
       <a href="#CustomKeyChain" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
-        <img src="app/img/logo.png" alt="CustomChain" class="w-full h-48 object-cover">
+        <img src="app/img/keychain.png" alt="CustomChain" class="mx-auto max-w-[70px] h-48 object-cover">
         <div class="p-4 text-center">
           <h3 class="text-lg semi-bold"> Custom Key Chain </h3>
         </div>
       </a>
 
       <a href="#Sticker" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
-        <img src="app/img/logo.png" alt="Sticker" class="w-full h-48 object-cover">
+        <img src="app/img/sticker.png" alt="Sticker" class="mx-auto max-w-[150px] h-48 object-cover">
         <div class="p-4 text-center">
           <h3 class="text-lg font semi-bold"> Sticker </h3>
         </div>
       </a>
     </section>
+    <!-- akhir dari section pilihan setelah jumbotron -->
 
+    <!-- section our product -->
+    <section id="MerchProduct" class="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="col-span-full text-center mb-6">
+        <h3 class="text-2xl font-semibold">Our Product</h3>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "keychain 1">
+        <img src="app/img/logo.png" alt="Product1" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold">Keychain 1</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "keychain 2">
+        <img src="app/img/logo.png" alt="Product2" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Keychain 2</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "keychain 3">
+        <img src="app/img/logo.png" alt="Product3" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Keychain 3</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "keychain 4">
+        <img src="app/img/logo.png" alt="Product4" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Keychain 4</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "sticker 1">
+        <img src="app/img/logo.png" alt="Product5" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Sticker 1</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "sticker 2">
+        <img src="app/img/logo.png" alt="Product6" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Sticker 2</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "sticker 3">
+        <img src="app/img/logo.png" alt="Product7" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Sticker 3</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "sticker 4">
+        <img src="app/img/logo.png" alt="Product8" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Sticker 4</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "photobooth 1">
+        <img src="app/img/logo.png" alt="Product9" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Photobooth 1</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "photobooth 2">
+        <img src="app/img/logo.png" alt="Product10" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Photobooth 2</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "photobooth 3">
+        <img src="app/img/logo.png" alt="Product11" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Photobooth 3</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "photobooth 4">
+        <img src="app/img/logo.png" alt="Product12" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Photobooth 4</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "merch 1">
+        <img src="app/img/logo.png" alt="Product13" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Merch 1</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "merch 2">
+        <img src="app/img/logo.png" alt="Product14" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Merch 2</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "merch 3">
+        <img src="app/img/logo.png" alt="Product15" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Merch 3</h4>
+        </div>
+      </div>
+
+      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "merch 4">
+        <img src="app/img/logo.png" alt="Product16" class="w-full h-48 object-cover">
+        <div class="p-4 text-center">
+          <h4 class="text-lg font-semibold"> Merch 4</h4>
+        </div>
+      </div>
+    </section>
+    <!-- akhir dari section our product -->
+
+  <!-- script untuk mengklik product yang akan di beli dan disimpan ke dalam keranjang -->
   <script>
-  // Ambil cart dari localStorage, kalau belum ada buat array kosong
+  // Ambil cart dari localStorage
   let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-  const cartBadge = document.querySelector('nav span');
+  const cartBadge = document.getElementById('cart-badge');
 
   function updateCartBadge() {
     cartBadge.textContent = cartItems.length;
@@ -136,8 +335,20 @@
     updateCartBadge();
   }
 
+  // Event klik untuk semua product-card
+  const products = document.querySelectorAll('.product-card');
+
+  products.forEach(product => {
+    product.addEventListener('click', () => {
+      const name = product.dataset.name;
+      addItemToCart(name);
+      alert(name + " ditambahkan ke cart!");
+    });
+  });
+
+  // Update badge saat halaman dibuka
   updateCartBadge();
 </script>
-
+<!-- akhir dari scipt untuk keranjang -->
 </body>
 </html>
