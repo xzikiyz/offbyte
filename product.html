@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Our Product </title>
+     <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-yellow-50">
+
+    <!-- navbar -->
+     <nav class="bg-white shadow-lg fixed w-full top-0 z-10 h-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+
+                <div class="flex items-center gap-2">
+                    <img src="app/img/logo.png" alt="Logo" class="h-8 w-8">
+                    <span class="font-bold text-xl text-blue-600">Off-byte</span>
+                </div>
+
+                <!-- menu desktop -->
+                 <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-blue-600 transition"> Home </a>
+                    <a href="photobooth.html" class="text-gray-600 hover:text-blue-600 transition"> Photobooth </a>
+                    <a href="product.html" class="text-gray-600 hover:text-blue-600 transition"> Merchantdise </a>
+                    <a href="index.html" class="text-gray-600 hover:text-blue-600 transition"> Contact </a>
+                 </div>
+
+                 <!-- Button untuk cart samping kanan -->
+                  <div id="cart-button" class="relative hidden md:black cursor-pointer text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                fill="none" viewBox="0 0 24 24" 
+                stroke-width="1.5" stroke="currentColor" 
+                class="w-7 h-7">
+                <path stroke-linecap="round" stroke-linejoin="round" 
+                    d="M2.25 2.25h1.386c.51 0 .955.343 1.087.835l.383 1.437m0 
+                    0L6.75 12.75m-1.644-8.223h12.354c.936 
+                    0 1.636.88 1.44 1.797l-1.29 5.995a1.5 
+                    1.5 0 01-1.44 1.203H6.75m0 0L5.25 
+                    6.75m1.5 6a2.25 2.25 0 
+                    100 4.5 2.25 2.25 0 000-4.5zm10.5 
+                    0a2.25 2.25 0 100 4.5 2.25 
+                    2.25 0 000-4.5z" />
+                    </svg>
+          <!-- fungsi untuk angka 0 yang akan bertambah di keranjang -->
+                    <span id="cart-badge"
+                        class="absolute -top-1 -right-2 bg-red-500 
+                        text-white text-xs font-bold rounded-full 
+                        h-4 w-4 flex items-center justify-center">
+                        0
+                    </span>
+                  </div>
+                  <!-- mobile -->
+                   <div class="mb-hidden">
+                    <button id="menu-btn" class="text-gray-800 text-3xl">
+                         ☰
+                    </button>
+                   </div>
+                </div>
+             </div>
+
+        <!-- menu mobile -->
+         <div id="mobile-menu" class="hidden md:hidden bg-white px-4 pb-4">
+            <a href="index.html" class="block py-2 border-b"> Home </a>
+            <a href="photobooth.html" class="block py-2 border-b"> Photobooth </a>
+            <a href="product.html" class="block py-2 border-b"> Merchandise </a>
+            <a href="index.html" class="block py-2 border-b"> Contact </a>
+         </div>
+        </nav>
+
+        <!-- fungsi untuk kerangjang -->
+         <div id="mini-cart" class="hidden absolute right-5 top-20 w-72 bg-white shadow-xl rounded-xl p-4 z-50 max-h-80 overflow-y-auto">
+            <h3 class="text-lg font-semibold mb-2"> Keranjang </h3>
+            <div id="mini-cart-items" class="space-y-2"></div>
+
+            <a href="cart.html" class="block mt-3 text-center bg-blue-500 text-white py-2 rounded-lg">
+                Lihat Keranjang
+            </a>
+         </div>
+
+         <!-- script untuk mini cart -->
+<script>
+  const miniCart = document.getElementById('mini-cart');
+  const miniCartItems = document.getElementById('mini-cart-items');
+  const cartButton = document.getElementById('cart-button');
+
+  // Toggle dropdown
+  cartButton.addEventListener('click', () => {
+    miniCart.classList.toggle('hidden');
+    loadMiniCartItems();
+  });
+
+  // Load item dari localStorage
+  function loadMiniCartItems() {
+    miniCartItems.innerHTML = "";
+
+    if (cartItems.length === 0) {
+      miniCartItems.innerHTML = "<p class='text-sm text-gray-500'>Keranjang kosong</p>";
+      return;
+    }
+
+    cartItems.forEach((item, index) => {
+      const div = document.createElement("div");
+      div.className = "flex justify-between items-center bg-gray-100 p-2 rounded";
+
+      div.innerHTML = `
+        <span class="text-sm font-medium">${item}</span>
+        <button class="text-red-500 text-xs" onclick="removeItem(${index})">Hapus</button>
+      `;
+
+      miniCartItems.appendChild(div);
+    });
+  }
+
+  // Hapus item
+  function removeItem(i) {
+    cartItems.splice(i, 1);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    updateCartBadge();
+    loadMiniCartItems();
+  }
+
+  // Klik luar → tutup dropdown
+  document.addEventListener("click", (e) => {
+    if (!miniCart.contains(e.target) && !cartButton.contains(e.target)) {
+      miniCart.classList.add("hidden");
+    }
+  });
+</script>
+
+
+
+  <!-- script untuk menu dropdown mobile-menu -->
+  <script>
+    const btn = document.getElementById("menu-btn");
+    const menu = document.getElementById("mobile-menu");
+
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  </script>
+
+    <section class="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols2 md:grid-cols-4 gap-6 mt-12">
+        <div class="col-span-full text-center mb-6">
+            <h3 class="text-2xl font-semibold"> This is Our Product </h3>
+        </div>
+
+        <div class="bg-white shadow rounded overflow-hidden product-card" data-name="key-chain">
+            <img src="app/img/keychain.png" alt="Key Chain" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h4 class="font-semibold mb-2"> Key Chain </h4>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn"> Add to Cart </button>
+            </div>
+        </div>
+
+        <div class="bg-white shadow rounded overflow-hidden product-card" data-name="key-chain2">
+          <img src="app/img/keychain.png" alt="Key Chain 2" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h4 class=" text-lg font-semibold mb-2"> keychain 2 </h4>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn"> Add to cart </button>
+          </div>
+        </div>
+
+        <div class="bg-white shadow rounded overflow-hidden product-card" data-name="keychain3">
+          <img src="app/img/keychain.png" alt="Key Chain 3" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold mb-2"> keychain 3 </h4>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn"> Add to cart </button>
+          </div>
+        </div>
+
+        <div class="bg-white shadow rounded overflow-hidden product-card" data-name="keychain4">
+          <img src="app/img/keychain.png" alt="Key Chain 3" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold mb-2"> keychain 4 </h4>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn"> Add to cart </button>
+          </div>
+        </div>
+
+        <div class="bg-white shadow rounded overflow-hidden product-card" data-name="Sticker1">
+          <img src="app/img/keychain.png" alt="Key Chain 3" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold mb-2"> Sticker 1 </h4>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn"> Add to cart </button>
+          </div>
+        </div>
+
+        <div class="bg-white shadow rounded overflow-hidden product-card" data-name="Sticker2">
+          <img src="app/img/keychain.png" alt="Key Chain 3" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold mb-2"> Sticker 2 </h4>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn"> Add to cart </button>
+          </div>
+        </div>
+
+        <div class="bg-white shadow rounded overflow-hidden product-card" data-name="sticker 3">
+          <img src="app/img/keychain.png" alt="Key Chain 3" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold mb-2"> sticker 3 </h4>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn"> Add to cart </button>
+          </div>
+        </div>
+
+        <div class="bg-white shadow rounded overflow-hidden product-card" data-name="sticker 4">
+          <img src="app/img/keychain.png" alt="Key Chain 3" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold mb-2"> sticker 4 </h4>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn"> Add to cart </button>
+          </div>
+        </div>
+
+        <div class="bg-white shadow rounded overflow-hidden product-card" data-name="shape 1">
+          <img src="app/img/keychain.png" alt="Key Chain 3" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold mb-2"> shape 1 </h4>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn"> Add to cart </button>
+          </div>
+        </div>
+    </section>
+    </body>
+</html>

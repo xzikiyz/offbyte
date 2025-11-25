@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Off Byte</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
-<body class="bg-yellow-50">
+<body class="bg-yellow-50 pt-16">
 
   
   <!-- NAVBAR -->
@@ -24,8 +26,8 @@
         <div class="hidden md:flex space-x-8">
           <a href="#" class="text-gray-600 hover:text-blue-600 transition">Home</a>
           <a href="#" class="text-gray-600 hover:text-blue-600 transition">Photobooth</a>
-          <a href="#" class="text-gray-600 hover:text-blue-600 transition">Mech Product</a>
-          <a href="#" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
+          <a href="#merch" class="text-gray-600 hover:text-blue-600 transition">Mech Product</a>
+          <a href="#contact" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
         </div>
         
         <!-- Button untuk cart samoing kanan -->
@@ -43,9 +45,7 @@
                     100 4.5 2.25 2.25 0 000-4.5zm10.5 
                     0a2.25 2.25 0 100 4.5 2.25 
                     2.25 0 000-4.5z" />
-              </svg>
-          </a>
-
+        </svg>
           <!-- fungsi untuk angka 0 yang akan bertambah di keranjang -->
           <span id="cart-badge"
         class="absolute -top-1 -right-2 bg-red-500 
@@ -159,7 +159,7 @@
       <div class="absolute bottom-8 left-6 text-white max-w-md">
         <h2 class="text-4xl font-bold mb-2">Selamat Datang di Off-byte!</h2>
         <p class="mb-4">Temukan produk photobooth dan mech terbaru kami.</p>
-        <a href="#products" class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold transition">
+        <a href="#merch" class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold transition">
           Lihat Produk
         </a>
       </div>
@@ -167,18 +167,11 @@
     <!-- akhir dari jumbotron -->
 
     <!-- section pilihan setelah jumbotron -->
-    <section class="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+    <section class="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
       <a href="#photobooth" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
         <img src="app/img/kamera.png" alt="Photobooth" class="mx-auto max-w-[120px] h-48 object-cover">
         <div class="p-4 text-center">
           <h3 class="text-lg font semi-bold"> Photobooth </h3>
-        </div>
-      </a>
-
-      <a href="#CreativeMerch" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
-        <img src="app/img/merch.png" alt="Creative Merch" class="mx-auto max-w-[150px] h-48 object-cover">
-        <div class="p-4 text-center">
-          <h3 class="text-lg font semi-bold"> Creative Merch </h3>
         </div>
       </a>
 
@@ -199,7 +192,7 @@
     <!-- akhir dari section pilihan setelah jumbotron -->
 
     <!-- section our product -->
-    <section id="MerchProduct" class="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+    <section id="merch" class="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-6">
       <div class="col-span-full text-center mb-6">
         <h3 class="text-2xl font-semibold">Our Product</h3>
       </div>
@@ -208,6 +201,9 @@
         <img src="app/img/logo.png" alt="Product1" class="w-full h-48 object-cover">
         <div class="p-4 text-center">
           <h4 class="text-lg font-semibold">Keychain 1</h4>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
+            Add to cart
+          </button>
         </div>
       </div>
 
@@ -215,6 +211,9 @@
         <img src="app/img/logo.png" alt="Product2" class="w-full h-48 object-cover">
         <div class="p-4 text-center">
           <h4 class="text-lg font-semibold"> Keychain 2</h4>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
+            Add to cart
+          </button>
         </div>
       </div>
 
@@ -222,6 +221,9 @@
         <img src="app/img/logo.png" alt="Product3" class="w-full h-48 object-cover">
         <div class="p-4 text-center">
           <h4 class="text-lg font-semibold"> Keychain 3</h4>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
+            Add to cart
+          </button>
         </div>
       </div>
 
@@ -229,6 +231,9 @@
         <img src="app/img/logo.png" alt="Product4" class="w-full h-48 object-cover">
         <div class="p-4 text-center">
           <h4 class="text-lg font-semibold"> Keychain 4</h4>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
+            Add to cart
+          </button>
         </div>
       </div>
 
@@ -236,6 +241,9 @@
         <img src="app/img/logo.png" alt="Product5" class="w-full h-48 object-cover">
         <div class="p-4 text-center">
           <h4 class="text-lg font-semibold"> Sticker 1</h4>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
+            Add to cart
+          </button>
         </div>
       </div>
 
@@ -243,6 +251,9 @@
         <img src="app/img/logo.png" alt="Product6" class="w-full h-48 object-cover">
         <div class="p-4 text-center">
           <h4 class="text-lg font-semibold"> Sticker 2</h4>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
+            Add to cart
+          </button>
         </div>
       </div>
 
@@ -250,6 +261,9 @@
         <img src="app/img/logo.png" alt="Product7" class="w-full h-48 object-cover">
         <div class="p-4 text-center">
           <h4 class="text-lg font-semibold"> Sticker 3</h4>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
+            Add to cart
+          </button>
         </div>
       </div>
 
@@ -257,66 +271,116 @@
         <img src="app/img/logo.png" alt="Product8" class="w-full h-48 object-cover">
         <div class="p-4 text-center">
           <h4 class="text-lg font-semibold"> Sticker 4</h4>
-        </div>
-      </div>
-
-      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "photobooth 1">
-        <img src="app/img/logo.png" alt="Product9" class="w-full h-48 object-cover">
-        <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Photobooth 1</h4>
-        </div>
-      </div>
-
-      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "photobooth 2">
-        <img src="app/img/logo.png" alt="Product10" class="w-full h-48 object-cover">
-        <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Photobooth 2</h4>
-        </div>
-      </div>
-
-      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "photobooth 3">
-        <img src="app/img/logo.png" alt="Product11" class="w-full h-48 object-cover">
-        <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Photobooth 3</h4>
-        </div>
-      </div>
-
-      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "photobooth 4">
-        <img src="app/img/logo.png" alt="Product12" class="w-full h-48 object-cover">
-        <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Photobooth 4</h4>
-        </div>
-      </div>
-
-      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "merch 1">
-        <img src="app/img/logo.png" alt="Product13" class="w-full h-48 object-cover">
-        <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Merch 1</h4>
-        </div>
-      </div>
-
-      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "merch 2">
-        <img src="app/img/logo.png" alt="Product14" class="w-full h-48 object-cover">
-        <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Merch 2</h4>
-        </div>
-      </div>
-
-      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "merch 3">
-        <img src="app/img/logo.png" alt="Product15" class="w-full h-48 object-cover">
-        <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Merch 3</h4>
-        </div>
-      </div>
-
-      <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "merch 4">
-        <img src="app/img/logo.png" alt="Product16" class="w-full h-48 object-cover">
-        <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Merch 4</h4>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
+            Add to cart
+          </button>
         </div>
       </div>
     </section>
     <!-- akhir dari section our product -->
+
+    <!-- button untuk melihat product  -->
+     <div class="text-center mb-12">
+        <a href="product.html" class="bg-gray-500 hover:bg-white-600 text-white px-5 py-2 rounded-lg font-semibold transition">
+          Lihat Produk selengkapnya
+        </a>
+     </div>
+
+     <!-- Contact us -->
+      <section id="contact" class="max-w-7xl mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+          <h3 class="text-3xl font-bold"> Contact Us </h3>
+          <p class="text-gray-600 mt-2"> Hubungi kami melalui sosial media berikut </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+          <!-- ketua -->
+           <div class="bg-white shadow-lg p-6 rounded-xl text-center">
+            <img src="app/img/fadli.JPG" alt="person 1" class="w-28 h-28 mx-auto rounded-full object-cover">
+            <h4 class="text-lg font-semibold mt-4"> Fadli Nur Bahani </h4>
+            <p class="text-gray-500"> UI/UX Designer </p>
+
+            <div class="flex justify-center gap-4 mt-4 text-xl">
+              <a href="https://www.instagram.com/fanuurrr_/" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://wa.me/628159730105" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-whatsapp"></i></a>
+              <a href="#" class="hover:text-pink-500"><i class="fa-brands fa-github"></i></a>
+           </div>
+           </div>
+
+          <!-- 1 -->
+           <div class="bg-white shadow-lg p-6 rounded-xl text-center">
+            <img src="app/img/iki.jpg" alt="person 1" class="w-28 h-28 mx-auto rounded-full object-cover">
+            <h4 class="text-lg font-semibold mt-4"> Rifqi Muhammad D </h4>
+            <p class="text-gray-500"> Front End Developer </p>
+
+            <div class="flex justify-center gap-4 mt-4 text-xl">
+              <a href="https://www.instagram.com/xzikiyz_/" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://wa.me/6281363219643" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-whatsapp"></i></a>
+              <a href="https://github.com/xzikiyz" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-github"></i></a>
+           </div>
+           </div>
+
+           <!-- 2 -->
+            <div class="bg-white shadow-lg p-6 rounded-xl text-center">
+            <img src="app/img/haidar.JPG" alt="person 1" class="w-28 h-28 mx-auto rounded-full object-cover">
+            <h4 class="text-lg font-semibold mt-4"> Muhammad Haidar Kholid </h4>
+            <p class="text-gray-500"> Creative </p>
+
+            <div class="flex justify-center gap-4 mt-4 text-xl">
+              <a href="https://www.instagram.com/haidarkholid/" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://wa.me/6285703883484" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-whatsapp"></i></a>
+              <a href="#" class="hover:text-pink-500"><i class="fa-brands fa-github"></i></a>
+           </div>
+           </div>
+
+           <!-- 3 -->
+            <div class="bg-white shadow-lg p-6 rounded-xl text-center">
+            <img src="app/img/cahaya.JPG" alt="person 1" class="w-28 h-28 mx-auto rounded-full object-cover">
+            <h4 class="text-lg font-semibold mt-4"> Cahaya Tresna Anugrah </h4>
+            <p class="text-gray-500"> Backend Developer </p>
+
+            <div class="flex justify-center gap-4 mt-4 text-xl">
+              <a href="https://www.instagram.com/cahayatrs5/" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://wa.me/6282118953039" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-whatsapp"></i></a>
+              <a href="https://github.com/Srglcbl" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-github"></i></a>
+           </div>
+           </div>
+
+           <!-- 4-->
+            <div class="bg-white shadow-lg p-6 rounded-xl text-center">
+            <img src="app/img/falih.jpg" alt="person 1" class="w-28 h-28 mx-auto rounded-full object-cover">
+            <h4 class="text-lg font-semibold mt-4"> Falih Athofa R </h4>
+            <p class="text-gray-500"> UI/UX Designer </p>
+
+            <div class="flex justify-center gap-4 mt-4 text-xl">
+              <a href="https://www.instagram.com/acil.athofa/" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://wa.me/6287775456634" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-whatsapp"></i></a>
+              <a href="#" class="hover:text-pink-500"><i class="fa-brands fa-github"></i></a>
+           </div>
+           </div>
+
+           <!-- 5 -->
+            <div class="bg-white shadow-lg p-6 rounded-xl text-center">
+            <img src="app/img/luqman.JPG" alt="person 1" class="w-28 h-28 mx-auto rounded-full object-cover">
+            <h4 class="text-lg font-semibold mt-4"> Luqman  </h4>
+            <p class="text-gray-500"> Creative </p>
+
+            <div class="flex justify-center gap-4 mt-4 text-xl">
+              <a href="https://www.instagram.com/luqman.mfnh/" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://wa.me/62882007411338" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-whatsapp"></i></a>
+              <a href="https://github.com/Luqmanmfnh" target="_blank" class="hover:text-pink-500"><i class="fa-brands fa-github"></i></a>
+           </div>
+           </div>
+        </div>
+      </section>
+
+      <footer class="bg-gray-500 text-white py-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+          <p class="text-sm"> @2025 offbyte. All rights resorved </p>
+        </div>
+      </footer>
+    
 
   <!-- script untuk mengklik product yang akan di beli dan disimpan ke dalam keranjang -->
   <script>
@@ -350,5 +414,8 @@
   updateCartBadge();
 </script>
 <!-- akhir dari scipt untuk keranjang -->
+
+<script src="https://kit.fontawesome.com/4b8d21c5a4.js" crossorigin="anonymous"></script>
+
 </body>
 </html>
