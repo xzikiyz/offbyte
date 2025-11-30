@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Off Byte</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* Custom styles for the photobooth layout */
+    .camera-container {
+        max-width: 640px;
+        margin: auto;
+    }
+    #live-video {
+        display: block;
+        width: 100%;
+        border-radius: 0.75rem; /* rounded-xl */
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+    }
+    /* Style for the tall collage preview */
+    #edit-canvas {
+        display: block;
+        width: 100%; /* Sekarang akan mengisi lebar wrapper-nya (max-w-xs) */
+        height: auto; /* Mempertahankan aspek rasio yang benar (tinggi) */
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    #capture-canvas {
+        display: none; /* Only used for temporary capture */
+    }
+</style>
+</head>
+
+<body class="bg-yellow-50 pt-16">
+
+  
+  <!-- NAVBAR -->
+  <nav class="bg-white shadow-lg fixed w-full top-0 z-10 h-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex justify-between items-center h-16">
+
+        <div class="flex items-center gap-2">
+          <img src="app/img/logo.png" class="h-10 w-10 rounded-full" alt="logo">
+          <h1 class="text-xl font-bold">Off-byte</h1>
+        </div>
+
+        <!-- Menu (Desktop) -->
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="text-gray-600 hover:text-blue-600 transition">Home</a>
+          <a href="#" class="text-gray-600 hover:text-blue-600 transition">Photobooth</a>
+          <a href="#merch" class="text-gray-600 hover:text-blue-600 transition">Mech Product</a>
+          <a href="#contact" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
+        </div>
+         <!-- Button untuk cart samoing kanan -->
+         <div id="cart-button" class="relative hidden md:block cursor-pointer text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                fill="none" viewBox="0 0 24 24" 
+                stroke-width="1.5" stroke="currentColor" 
+                class="w-7 h-7">
+                <path stroke-linecap="round" stroke-linejoin="round" 
+                    d="M2.25 2.25h1.386c.51 0 .955.343 1.087.835l.383 1.437m0 
+                    0L6.75 12.75m-1.644-8.223h12.354c.936 
+                    0 1.636.88 1.44 1.797l-1.29 5.995a1.5 
+                    1.5 0 01-1.44 1.203H6.75m0 0L5.25 
+                    6.75m1.5 6a2.25 2.25 0 
+                    100 4.5 2.25 2.25 0 000-4.5zm10.5 
+                    0a2.25 2.25 0 100 4.5 2.25 
+                    2.25 0 000-4.5z" />
+        </svg>
+          <!-- fungsi untuk angka 0 yang akan bertambah di keranjang -->
+          <span id="cart-badge"
+        class="absolute -top-1 -right-2 bg-red-500 
+               text-white text-xs font-bold rounded-full 
+               h-4 w-4 flex items-center justify-center">
+        0
+    </span>
+        </div>
+
+        <!-- Hamburger mobile view-->
+         <div class="mb-hidden">
+          <button id="menu-btn" class="text-gray-800 text-3xl">
+             ☰
+          </button>
+         </div>
+      </div>
+    </div>
+
+    <!-- Menu (Mobile) -->
+     <div id="mobile-menu" class="hidden md:hidden bg-white px-4 pb-4">
+        <a href="index.html" class="block py-2 border-b"> Home </a>
+        <a href="#" class="block py-2 border-b"> Photobooth </a>
+        <a href="#" class="block py-2 border-b"> Mech Product </a>
+        <a href="#" class="block py-2 border-b"> Contact </a>
+     </div>
+  </nav>
+
+  <!-- MAIN PHOTOBOOTH SECTION --><main class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Kolase 3 Foto Photobooth</h2>
+
+        <div id="setup-area" class="text-center mb-8">
+            <button id="start-camera" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-200">
+                <i class="fa-solid fa-camera mr-2"></i> Mulai Kamera
+            </button>
+            <p id="camera-status" class="mt-4 text-gray-600 text-sm"></p>
+        </div>
+
+        <div id="photobooth-area" class="hidden grid lg:grid-cols-2 gap-8">
+            <!-- AREA 1: LIVE VIDEO / CAPTURE --><div id="capture-panel" class="camera-container bg-white p-4 rounded-xl shadow-xl">
+                <h3 class="text-xl font-semibold mb-3 text-center">Live Kamera</h3>
+                <video id="live-video" autoplay playsinline style="transform: scaleX(-1);"></video>
+                <canvas id="capture-canvas" style="display:none;"></canvas>
+
+                <div class="mt-6 text-center">
+                    <button id="capture-btn" disabled class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-md transition duration-200 disabled:opacity-50">
+                        <i class="fa-solid fa-circle-dot mr-2"></i> Ambil Foto <span id="photo-count">(0/3)</span>
+                    </button>
+                    <button id="reset-btn" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-3 px-4 rounded-full shadow-md transition duration-200 ml-2 disabled:opacity-50" disabled>
+                        <i class="fa-solid fa-arrows-rotate"></i> Reset
+                    </button>
+                    <p id="capture-status" class="mt-3 text-sm font-medium text-blue-600">Ambil 3 foto untuk membuat kolase.</p>
+                </div>
+            </div>
+
+            <!-- AREA 2: EDITING / PREVIEW / DOWNLOAD --><div id="editing-panel" class="bg-white p-4 rounded-xl shadow-xl">
+                <h3 class="text-xl font-semibold mb-3 text-center">Pratinjau Kolase & Edit</h3>
+                
+                <!-- Canvas Final Edit --><div class="flex justify-center h-full">
+                    <!-- WRAPPER BARU: Memastikan tampilan potret dan centering --><div id="canvas-wrapper" class="w-full max-w-xs mx-auto">
+                        <canvas id="edit-canvas"></canvas>
+                    </div>
+                </div>
+                <p id="preview-message" class="text-center text-gray-500 mt-4">Ambil 3 foto untuk melihat pratinjau kolase.</p>
+
+                <!-- Pilihan Latar Belakang (Background) --><div id="background-options" class="mt-6">
+                    <label class="block text-sm font-medium mb-2">Pilih Latar Belakang Kolase:</label>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <!-- 0: Transparent/No BG --><button data-bg-id="0" class="bg-white p-2 border-4 border-blue-500 rounded-lg shadow-sm w-12 h-12 flex items-center justify-center text-xs font-bold transition duration-200 hover:scale-105 active-bg">
+                            <i class="fa-solid fa-ban"></i>
+                        </button>
+                        <!-- 1: Purple --><button data-bg-id="1" class="bg-purple-500 p-2 border-4 border-white rounded-lg shadow-sm w-12 h-12 flex items-center justify-center transition duration-200 hover:scale-105"></button>
+                        <!-- 2: Yellow --><button data-bg-id="2" class="bg-yellow-300 p-2 border-4 border-white rounded-lg shadow-sm w-12 h-12 flex items-center justify-center transition duration-200 hover:scale-105"></button>
+                        <!-- 3: Remote Image --><button data-bg-id="3" class="p-2 border-4 border-white rounded-lg shadow-sm w-12 h-12 flex items-center justify-center transition duration-200 hover:scale-105" style="background-image: url('https://placehold.co/100x100/374151/white?text=Dark'); background-size: cover;"></button>
+                        <!-- 4: Local Image (Trigger file input) --><button data-bg-id="4" id="local-upload-btn" class="bg-indigo-500 text-white p-2 border-4 border-white rounded-lg shadow-sm w-12 h-12 flex items-center justify-center text-xs font-bold transition duration-200 hover:scale-105">
+                            <i class="fa-solid fa-upload"></i>
+                        </button>
+                    </div>
+                    <!-- Hidden File Input for Local Image Upload --><input type="file" id="local-image-upload" accept="image/*" class="hidden">
+                </div>
+
+                <!-- Tombol Download --><div class="mt-8 text-center">
+                    <button id="download-btn" disabled class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-full shadow-md transition duration-200 disabled:opacity-50">
+                        <i class="fa-solid fa-download mr-2"></i> Unduh Kolase
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- FOOTER --><footer class="bg-gray-500 text-white py-10 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm"> @2025 offbyte. All rights reserved </p>
+        </div>
+    </footer>
+    
+    <!-- SCRIPT LOGIC --><script>
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+        });
+
+        const startCamBtn = document.getElementById('start-camera');
+        const captureBtn = document.getElementById('capture-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const liveVideo = document.getElementById('live-video');
+        const setupArea = document.getElementById('setup-area');
+        const photoboothArea = document.getElementById('photobooth-area');
+        const cameraStatus = document.getElementById('camera-status');
+        const captureStatus = document.getElementById('capture-status');
+        const photoCount = document.getElementById('photo-count');
+        const previewMessage = document.getElementById('preview-message');
+        
+        // New elements for local upload
+        const localUploadBtn = document.getElementById('local-upload-btn');
+        const localImageUpload = document.getElementById('local-image-upload');
+
+        const captureCanvas = document.getElementById('capture-canvas');
+        const captureCtx = captureCanvas.getContext('2d');
+        
+        const editCanvas = document.getElementById('edit-canvas');
+        const editCtx = editCanvas.getContext('2d');
+
+        const MAX_PHOTOS = 3;
+        const COLLAGE_PADDING = 20; // Padding in pixels around photos and between them
+        const TOP_BRANDING_HEIGHT = 80; // Extra space at the top for "OffByte" text
+        
+        let videoStream = null;
+        let capturedImages = []; // Array to hold the 3 captured image objects
+        let singlePhotoWidth = 0;
+        let singlePhotoHeight = 0;
+        let selectedBgId = 0;
+        let localBgImageURL = null; // Store the URL for the local image
+
+        // --- Configuration for Backgrounds ---
+        const backgrounds = [
+            { id: 0, type: 'fill', value: 'transparent', label: 'None', color: '#000000' }, // Hitam
+            { id: 1, type: 'fill', value: '#A855F7', label: 'Purple', color: '#FFFFFF' }, // Putih (gelap)
+            { id: 2, type: 'fill', value: '#FCD34D', label: 'Yellow', color: '#000000' }, // Hitam (terang)
+            { id: 3, type: 'image', value: 'https://placehold.co/600x400/374151/white?text=Dark%20Pattern', label: 'Remote Pattern', color: '#FFFFFF' }, // Putih (gelap)
+            { id: 4, type: 'local_image', value: null, label: 'Local Upload', color: '#FFFFFF' }, // Default Putih untuk gambar lokal, bisa diubah jika perlu
+        ];
+
+        // --- Camera Setup ---
+        startCamBtn.addEventListener('click', async () => {
+            cameraStatus.textContent = 'Meminta izin kamera...';
+            try {
+                // Request access to the video stream (front camera preferred)
+                videoStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'user' } 
+                });
+                
+                liveVideo.srcObject = videoStream;
+                liveVideo.play();
+
+                // Wait for video metadata to be loaded (width/height available)
+                liveVideo.onloadedmetadata = () => {
+                    cameraStatus.textContent = 'Kamera Aktif.';
+                    setupArea.classList.add('hidden');
+                    photoboothArea.classList.remove('hidden');
+                    captureBtn.disabled = false;
+                    resetBtn.disabled = false;
+                    
+                    // Set dimensions based on video feed (e.g., 640x480)
+                    singlePhotoWidth = liveVideo.videoWidth;
+                    singlePhotoHeight = liveVideo.videoHeight;
+                    
+                    // Set canvas dimensions for individual capture
+                    captureCanvas.width = singlePhotoWidth;
+                    captureCanvas.height = singlePhotoHeight;
+                    
+                    // Update collage canvas dimensions with padding and top branding space
+                    editCanvas.width = singlePhotoWidth + (2 * COLLAGE_PADDING);
+                    editCanvas.height = (singlePhotoHeight * MAX_PHOTOS) + ((MAX_PHOTOS + 1) * COLLAGE_PADDING) + TOP_BRANDING_HEIGHT;
+                };
+
+            } catch (err) {
+                cameraStatus.textContent = `Error: Tidak dapat mengakses kamera. Pastikan izin diberikan. (${err.message})`;
+                console.error("Error accessing camera:", err);
+            }
+        });
+        
+        // --- Reset Function ---
+        resetBtn.addEventListener('click', () => {
+            capturedImages = [];
+            photoCount.textContent = `(0/${MAX_PHOTOS})`;
+            captureStatus.textContent = "Ambil 3 foto untuk membuat kolase.";
+            captureStatus.classList.remove('text-red-500');
+            captureStatus.classList.add('text-blue-600');
+            captureBtn.disabled = false;
+            downloadBtn.disabled = true;
+            localBgImageURL = null; // Reset local image URL
+            localImageUpload.value = ''; // Clear file input
+            
+            // Clear the preview canvas
+            editCtx.clearRect(0, 0, editCanvas.width, editCanvas.height);
+            previewMessage.classList.remove('hidden');
+        });
+
+
+        // --- Capture Photo ---
+        captureBtn.addEventListener('click', () => {
+            if (!videoStream || capturedImages.length >= MAX_PHOTOS) return;
+
+            // 1. Draw the current video frame onto the capture canvas
+            captureCtx.save();
+            captureCtx.scale(-1, 1); // Mirror the image
+            captureCtx.drawImage(liveVideo, singlePhotoWidth * -1, 0, singlePhotoWidth, singlePhotoHeight);
+            captureCtx.restore();
+
+            // Disable capture button while image is loading
+            captureBtn.disabled = true; 
+
+            // 2. Create Image object from data URL
+            const newImage = new Image();
+            
+            // Add event listener to ensure image is loaded before processing
+            newImage.onload = () => {
+                capturedImages.push(newImage);
+                
+                // 3. Update UI status and re-enable button
+                photoCount.textContent = `(${capturedImages.length}/${MAX_PHOTOS})`;
+                
+                if (capturedImages.length === MAX_PHOTOS) {
+                    downloadBtn.disabled = false;
+                    captureStatus.textContent = "Kolase siap diunduh. Ubah latar belakang jika diperlukan.";
+                    captureStatus.classList.remove('text-blue-600');
+                    captureStatus.classList.add('text-green-600');
+                    // Capture button remains disabled as limit is reached
+                } else {
+                    captureBtn.disabled = false; // Re-enable for next photo
+                    captureStatus.textContent = `Foto ke-${capturedImages.length + 1} siap diambil.`;
+                }
+
+                // 4. Render the edited image
+                renderEditedImage();
+            };
+
+            newImage.src = captureCanvas.toDataURL('image/png');
+        });
+
+        // --- Background Selector Listener ---
+        document.querySelectorAll('#background-options button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                // PERBAIKAN: Mengganti dataset.bg-id menjadi dataset.bgId untuk mengakses atribut data-bg-id yang benar
+                const newBgId = parseInt(e.currentTarget.dataset.bgId);
+                
+                // If the local upload button (ID 4) is clicked, trigger the file input
+                if (newBgId === 4) {
+                    localImageUpload.click();
+                    return; // Wait for file selection event
+                }
+
+                if (newBgId === selectedBgId) return; // Already selected
+
+                selectedBgId = newBgId;
+                updateActiveBackground(e.currentTarget);
+
+                // Re-render if enough images have been captured
+                if (capturedImages.length === MAX_PHOTOS) {
+                    renderEditedImage();
+                }
+            });
+        });
+        
+        // Helper function to update active button style
+        function updateActiveBackground(activeButton) {
+            document.querySelectorAll('.active-bg').forEach(activeBtn => {
+                activeBtn.classList.remove('active-bg', 'border-blue-500');
+                activeBtn.classList.add('border-white');
+            });
+            activeButton.classList.add('active-bg', 'border-blue-500');
+            activeButton.classList.remove('border-white');
+        }
+
+        // --- Local Image Upload Handler ---
+        localImageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                // Store the result (Data URL) and update the active button
+                localBgImageURL = event.target.result;
+                selectedBgId = 4; // Set the active ID to local image
+                updateActiveBackground(localUploadBtn);
+
+                if (capturedImages.length === MAX_PHOTOS) {
+                    renderEditedImage();
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // --- Render Edited Image (Collage) ---
+        function renderEditedImage() {
+            if (capturedImages.length < MAX_PHOTOS) {
+                previewMessage.classList.remove('hidden');
+                return;
+            }
+            previewMessage.classList.add('hidden');
+            
+            const w = editCanvas.width;
+            const h = editCanvas.height;
+            const selectedBg = backgrounds.find(bg => bg.id === selectedBgId);
+
+            // Tentukan warna teks default (putih untuk latar belakang gelap/gambar, hitam untuk terang)
+            let textColor = selectedBg.color || '#FFFFFF'; 
+
+            // 1. Clear the canvas
+            editCtx.clearRect(0, 0, w, h);
+
+            // 2. Draw Background for the entire collage strip
+            let bgToDraw = null;
+            if (selectedBg.type === 'fill') {
+                editCtx.fillStyle = selectedBg.value;
+                editCtx.fillRect(0, 0, w, h);
+                drawForegroundPhotos(textColor); 
+            } else if (selectedBg.type === 'image' || selectedBg.type === 'local_image') {
+                
+                // Determine the image source
+                bgToDraw = new Image();
+                bgToDraw.crossOrigin = "Anonymous";
+
+                if (selectedBg.type === 'local_image' && localBgImageURL) {
+                    bgToDraw.src = localBgImageURL;
+                } else if (selectedBg.type === 'image') {
+                    bgToDraw.src = selectedBg.value;
+                } else {
+                    // Fallback to transparent if local image is selected but not loaded/available
+                    drawForegroundPhotos(textColor); 
+                    return;
+                }
+                
+                bgToDraw.onload = function() {
+                    // Draw image scaled to cover the TALL canvas
+                    let ratio = Math.max(w / bgToDraw.width, h / bgToDraw.height); // Use h as total height
+                    let x = (w - bgToDraw.width * ratio) / 2;
+                    let y = (h - bgToDraw.height * ratio) / 2;
+                    editCtx.drawImage(bgToDraw, x, y, bgToDraw.width * ratio, bgToDraw.height * ratio);
+                    
+                    // After drawing background image, draw foreground photos
+                    drawForegroundPhotos(textColor);
+                };
+                
+                // Jika gambar belum dimuat, panggil drawForegroundPhotos segera dengan latar belakang default (misalnya hitam)
+                if (!bgToDraw.complete) {
+                     // Gambar tidak dimuat secara sinkron, gunakan warna teks default (putih)
+                     drawForegroundPhotos(textColor);
+                }
+
+            } else {
+                // If transparent/no background (ID 0), just draw foreground photos
+                drawForegroundPhotos(textColor);
+            }
+
+            // Function to draw photos over the background and add branding
+            function drawForegroundPhotos(brandColor) {
+                const drawW = singlePhotoWidth; 
+                const drawH = singlePhotoHeight; 
+                
+                // 1. Draw Captured Images
+                capturedImages.forEach((img, index) => {
+                    const xPosition = COLLAGE_PADDING; // Jarak dari tepi kiri
+                    // Calculate Y position: (Top Branding Height) + (Photo Height * Index) + (Padding * (Index + 1))
+                    const yPosition = TOP_BRANDING_HEIGHT + (drawH * index) + (COLLAGE_PADDING * (index + 1)); 
+
+                    // Draw the captured image into its slot on the collage strip
+                    editCtx.drawImage(img, xPosition, yPosition, drawW, drawH);
+                });
+                
+                // 2. Draw "OffByte" text
+                
+                // Atur gaya teks
+                editCtx.font = `900 ${TOP_BRANDING_HEIGHT * 0.45}px Inter, sans-serif`; // Gunakan font Inter dan lebih tebal
+                editCtx.fillStyle = brandColor; // Gunakan warna yang ditentukan berdasarkan latar belakang
+                editCtx.textAlign = 'center'; // Tengahkan teks
+                editCtx.textBaseline = 'middle'; // Posisikan secara vertikal di tengah
+
+                // Tambahkan drop shadow untuk membuatnya menonjol
+                editCtx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                editCtx.shadowBlur = 5;
+                editCtx.shadowOffsetX = 2;
+                editCtx.shadowOffsetY = 2;
+
+
+                // Posisi teks di tengah lebar kanvas, dan di tengah tinggi branding area
+                const textX = w / 2;
+                const textY = TOP_BRANDING_HEIGHT / 2 + (COLLAGE_PADDING / 2);
+
+                editCtx.fillText("OffByte", textX, textY);
+                
+                // Hapus shadow agar tidak mempengaruhi elemen berikutnya (foto)
+                editCtx.shadowBlur = 0;
+                editCtx.shadowOffsetX = 0;
+                editCtx.shadowOffsetY = 0;
+            }
+        }
+
+        // --- Download Function ---
+        downloadBtn.addEventListener('click', () => {
+            if (capturedImages.length !== MAX_PHOTOS) return;
+
+            // Trigger download via a temporary link
+            const dataURL = editCanvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'offbyte_collage_' + Date.now() + '.png';
+            link.href = dataURL;
+            link.click();
+        });
+    </script>
+</body>

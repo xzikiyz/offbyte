@@ -5,6 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Our Product </title>
      <script src="https://cdn.tailwindcss.com"></script>
+
+     <style>
+      .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal-content {
+            background: white;
+            width: 350px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .close {
+            float: right;
+            cursor: pointer;
+            font-size: 20px;
+        }
+     </style>
 </head>
 <body class="bg-yellow-50">
 
@@ -140,12 +172,12 @@
     });
   </script>
 
-    <section class="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols2 md:grid-cols-4 gap-6 mt-12">
+    <section class="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols2 md:grid-cols-4 gap-6 mt-12" id="card-container">
         <div class="col-span-full text-center mb-6">
             <h3 class="text-2xl font-semibold"> This is Our Product </h3>
         </div>
 
-        <div class="bg-white shadow rounded overflow-hidden product-card" data-name="key-chain">
+        <!-- <div class="bg-white shadow rounded overflow-hidden product-card" data-name="key-chain">
             <img src="app/img/keychain.png" alt="Key Chain" class="w-full h-48 object-cover">
             <div class="p-4">
                 <h4 class="font-semibold mb-2"> Key Chain </h4>
@@ -215,7 +247,26 @@
             <h4 class="font-semibold mb-2"> shape 1 </h4>
             <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn"> Add to cart </button>
           </div>
-        </div>
+        </div> -->
     </section>
+    <!-- POPUP MODAL -->
+    <!-- POPUP MODAL DETAIL PRODUK -->
+      <div id="product-modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+
+            <img id="modal-img" class="w-full h-48 object-cover rounded mb-4">
+
+            <h2 id="modal-name" class="text-xl font-bold mb-2"></h2>
+            <p id="modal-price" class="text-gray-700 mb-4"></p>
+
+            <button id="modal-add-cart"
+                class="bg-blue-500 text-white px-4 py-2 rounded">
+                Add to Cart
+            </button>
+        </div>
+      </div>
+
+    <script src="script.js"></script>
     </body>
 </html>
