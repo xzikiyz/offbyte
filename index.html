@@ -30,31 +30,6 @@
           <a href="#contact" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
         </div>
         
-        <!-- Button untuk cart samoing kanan -->
-        <div id="cart-button" class="relative hidden md:block cursor-pointer text-gray-700">
-            <svg xmlns="http://www.w3.org/2000/svg" 
-                fill="none" viewBox="0 0 24 24" 
-                stroke-width="1.5" stroke="currentColor" 
-                class="w-7 h-7">
-                <path stroke-linecap="round" stroke-linejoin="round" 
-                    d="M2.25 2.25h1.386c.51 0 .955.343 1.087.835l.383 1.437m0 
-                    0L6.75 12.75m-1.644-8.223h12.354c.936 
-                    0 1.636.88 1.44 1.797l-1.29 5.995a1.5 
-                    1.5 0 01-1.44 1.203H6.75m0 0L5.25 
-                    6.75m1.5 6a2.25 2.25 0 
-                    100 4.5 2.25 2.25 0 000-4.5zm10.5 
-                    0a2.25 2.25 0 100 4.5 2.25 
-                    2.25 0 000-4.5z" />
-        </svg>
-          <!-- fungsi untuk angka 0 yang akan bertambah di keranjang -->
-          <span id="cart-badge"
-        class="absolute -top-1 -right-2 bg-red-500 
-               text-white text-xs font-bold rounded-full 
-               h-4 w-4 flex items-center justify-center">
-        0
-    </span>
-        </div>
-
         <!-- Hamburger mobile view-->
          <div class="mb-hidden">
           <button id="menu-btn" class="text-gray-800 text-3xl">
@@ -72,71 +47,6 @@
         <a href="#" class="block py-2 border-b"> Contact </a>
      </div>
   </nav>
-
-  <!-- fungsi untuk keranjang  -->
-  <div id="mini-cart" 
-     class="hidden absolute right-5 top-20 w-72 bg-white shadow-xl rounded-xl p-4 z-50 max-h-80 overflow-y-auto">
-  <h3 class="text-lg font-semibold mb-2">Keranjang</h3>
-  <div id="mini-cart-items" class="space-y-2"></div>
-
-  <a href="cart.php" 
-     class="block mt-3 text-center bg-blue-500 text-white py-2 rounded-lg">
-     Lihat Keranjang
-  </a>
-</div>
-
-<!-- script untuk mini cart -->
-<script>
-  const miniCart = document.getElementById('mini-cart');
-  const miniCartItems = document.getElementById('mini-cart-items');
-  const cartButton = document.getElementById('cart-button');
-
-  // Toggle dropdown
-  cartButton.addEventListener('click', () => {
-    miniCart.classList.toggle('hidden');
-    loadMiniCartItems();
-  });
-
-  // Load item dari localStorage
-  function loadMiniCartItems() {
-    miniCartItems.innerHTML = "";
-
-    if (cartItems.length === 0) {
-      miniCartItems.innerHTML = "<p class='text-sm text-gray-500'>Keranjang kosong</p>";
-      return;
-    }
-
-    cartItems.forEach((item, index) => {
-      const div = document.createElement("div");
-      div.className = "flex justify-between items-center bg-gray-100 p-2 rounded";
-
-      div.innerHTML = `
-        <span class="text-sm font-medium">${item}</span>
-        <button class="text-red-500 text-xs" onclick="removeItem(${index})">Hapus</button>
-      `;
-
-      miniCartItems.appendChild(div);
-    });
-  }
-
-  // Hapus item
-  function removeItem(i) {
-    cartItems.splice(i, 1);
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    updateCartBadge();
-    loadMiniCartItems();
-  }
-
-  // Klik luar → tutup dropdown
-  document.addEventListener("click", (e) => {
-    if (!miniCart.contains(e.target) && !cartButton.contains(e.target)) {
-      miniCart.classList.add("hidden");
-    }
-  });
-</script>
-
-
-
   <!-- script untuk menu dropdown mobile-menu -->
   <script>
     const btn = document.getElementById("menu-btn");
@@ -168,21 +78,21 @@
 
     <!-- section pilihan setelah jumbotron -->
     <section class="max-w-7xl mx-auto px-4 py-12 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <a href="#photobooth" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
+      <a href="photobooth.html" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
         <img src="app/img/kamera.png" alt="Photobooth" class="mx-auto max-w-[120px] h-48 object-cover">
         <div class="p-4 text-center">
           <h3 class="text-lg font semi-bold"> Photobooth </h3>
         </div>
       </a>
 
-      <a href="#CustomKeyChain" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
+      <a href="product.html" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
         <img src="app/img/keychain.png" alt="CustomChain" class="mx-auto max-w-[70px] h-48 object-cover">
         <div class="p-4 text-center">
           <h3 class="text-lg semi-bold"> Custom Key Chain </h3>
         </div>
       </a>
 
-      <a href="#Sticker" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
+      <a href="product.html" class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transform transition">
         <img src="app/img/sticker.png" alt="Sticker" class="mx-auto max-w-[150px] h-48 object-cover">
         <div class="p-4 text-center">
           <h3 class="text-lg font semi-bold"> Sticker </h3>
@@ -198,89 +108,75 @@
       </div>
 
       <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "keychain 1" id = 'pr'>
-        <img src="app/img/logo.png" alt="Product1" class="w-full h-48 object-cover">
+        <img src="app/img/iki 1.png" alt="Product1" class="w-full h-60 object-contain mx-auto">
         <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold">Keychain 1</h4>
-          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
-            Add to cart
-          </button>
+          <h4 class="text-lg font-semibold"> Gantungan Kunci Akrilik Tekkom </h4>
         </div>
       </div>
 
       <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "keychain 2">
-        <img src="app/img/logo.png" alt="Product2" class="w-full h-48 object-cover">
+        <img src="app/img/haidar 1.png" alt="Product2" class="w-full h-60 object-contain mx-auto">
         <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Keychain 2</h4>
-          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
-            Add to cart
-          </button>
+          <h4 class="text-lg font-semibold"> Gantungan Kunci Akrilik jas UPI </h4>
         </div>
       </div>
 
       <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "keychain 3">
-        <img src="app/img/logo.png" alt="Product3" class="w-full h-48 object-cover">
+        <img src="app/img/offbyte.png" alt="Product3" class="w-full h-60 object-contain mx-auto">
         <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Keychain 3</h4>
-          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
-            Add to cart
-          </button>
+          <h4 class="text-lg font-semibold"> Gantungan Kunci Kain Merc offbyte </h4>
         </div>
       </div>
 
       <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "keychain 4">
-        <img src="app/img/logo.png" alt="Product4" class="w-full h-48 object-cover">
+        <img src="app/img/anime.png" alt="Product4" class="w-full h-60 object-contain mx-auto">
         <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Keychain 4</h4>
-          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
-            Add to cart
-          </button>
+          <h4 class="text-lg font-semibold"> Gantungan kunci akrilik anime </h4>
         </div>
       </div>
 
       <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "sticker 1">
-        <img src="app/img/logo.png" alt="Product5" class="w-full h-48 object-cover">
+        <img src="app/img/sticker 1.png" alt="Product5" class="w-full h-60 object-contain mx-auto">
         <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Sticker 1</h4>
-          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
-            Add to cart
-          </button>
+          <h4 class="text-lg font-semibold"> Sticker Anime </h4>
         </div>
       </div>
 
       <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "sticker 2">
-        <img src="app/img/logo.png" alt="Product6" class="w-full h-48 object-cover">
+        <img src="app/img/sticker 2.png" alt="Product6" class="w-full h-60 object-contain mx-auto">
         <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Sticker 2</h4>
-          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
-            Add to cart
-          </button>
+          <h4 class="text-lg font-semibold"> Sticker Anime </h4>
         </div>
       </div>
 
       <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "sticker 3">
-        <img src="app/img/logo.png" alt="Product7" class="w-full h-48 object-cover">
+        <img src="app/img/sticker 3.png" alt="Product7" class="w-full h-60 object-contain mx-auto">
         <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Sticker 3</h4>
-          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
-            Add to cart
-          </button>
+          <h4 class="text-lg font-semibold"> Sticker Anime </h4>
         </div>
       </div>
 
       <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "sticker 4">
-        <img src="app/img/logo.png" alt="Product8" class="w-full h-48 object-cover">
+        <img src="app/img/sticker 4.png" alt="Product8" class="w-full h-60 object-contain mx-auto">
         <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Sticker 4</h4>
-          <button class="bg-blue-500 text-white px-4 py-2 rounded add-to-cart-btn">
-            Add to cart
-          </button>
+          <h4 class="text-lg font-semibold"> Sticker Anime </h4>
         </div>
       </div>
     </section>
     <!-- akhir dari section our product -->
 
+    <section class="bg-blue-200 w-full h-48 px-4 py-8">
+      <div class="max-w-7xl mx-auto text-center text-white">
+        <h3 class="text-2xl font-semibold mb-2"> Ingin Custom Produkmu Sendiri? </h3>
+        <p class="mb-4"> Hubungi kami untuk mendapatkan produk custom sesuai keinginanmu! </p>
+        <a href="#contact" class="bg-white hover:bg-gray-200 text-orange-900 px-5 py-2 rounded-lg font-semibold transition">
+          Hubungi Kami
+        </a>
+      </div>
+    </section>
+
     <!-- button untuk melihat product  -->
-     <div class="text-center mb-12">
+     <div class="text-center mt-12 mb-12">
         <a href="product.html" class="bg-gray-500 hover:bg-white-600 text-white px-5 py-2 rounded-lg font-semibold transition">
           Lihat Produk selengkapnya
         </a>
@@ -383,37 +279,7 @@
     
 
   <!-- script untuk mengklik product yang akan di beli dan disimpan ke dalam keranjang -->
-  <script>
-  // Ambil cart dari localStorage
-  let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-  const cartBadge = document.getElementById('cart-badge');
-
-  function updateCartBadge() {
-    cartBadge.textContent = cartItems.length;
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  }
-
-  function addItemToCart(item) {
-    cartItems.push(item);
-    updateCartBadge();
-  }
-
-  // Event klik untuk semua product-card
-  // const products = document.querySelectorAll('.product-card');
-
-  // products.forEach(product => {
-  //   product.addEventListener('click', () => {
-  //     const name = product.dataset.name;
-  //     addItemToCart(name);
-  //     alert(name + " ditambahkan ke cart!");
-  //   });
-  // });
-
-  // Update badge saat halaman dibuka
-  updateCartBadge();
-</script>
-<!-- akhir dari scipt untuk keranjang -->
+  
 <!-- POPUP DETAIL PRODUK -->
 <div id="product-modal" 
      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[200]">
@@ -425,16 +291,11 @@
       &times;
     </button>
 
-    <img id="modal-image" src="" class="w-full h-48 object-cover rounded-lg">
+    <img id="modal-image" src="" class="w-full h-60 object-contain mx-auto rounded-lg">
     
     <h2 id="modal-name" class="text-xl font-bold mt-3"></h2>
     <p id="modal-desc" class="text-gray-600 mt-2"></p>
     <p id="modal-price" class="font-bold text-lg mt-3"></p>
-
-    <button id="modal-add-cart" 
-            class="bg-blue-500 w-full mt-4 text-white py-2 rounded-lg">
-      Add to Cart
-    </button>
   </div>
 
 </div>
@@ -444,52 +305,52 @@
 <script>
   const productData = {
     "keychain 1": {
-      name: "Keychain 1",
+      name: "Gantungan Kunci Akrilik Tekkom",
       desc: "Keychain unik dengan kualitas premium.",
-      price: "Rp 10.000",
-      img: "app/img/logo.png"
+      price: "Rp 8.000",
+      img: "app/img/iki 1.png"
     },
     "keychain 2": {
-      name: "Keychain 2",
+      name: "Gantungan Kunci Akrilik Jaster UPI",
       desc: "Keychain lucu cocok untuk hadiah.",
-      price: "Rp 12.000",
-      img: "app/img/logo.png"
+      price: "Rp 8.000",
+      img: "app/img/haidar 1.png"
     },
     "keychain 3": {
-      name: "Keychain 3",
+      name: "Gantungan Kunci Kain Merc offbyte",
       desc: "Keychain lucu cocok untuk hadiah.",
-      price: "Rp 12.000",
-      img: "app/img/logo.png"
+      price: "Rp 8.000",
+      img: "app/img/offbyte.png"
     },
     "keychain 4": {
-      name: "Keychain 3",
+      name: "Gantungan kunci akrilik anime",
       desc: "Keychain Keren Anime",
-      price: "Rp 15.000",
-      img: "app/img/logo.png"
+      price: "Rp 8.000",
+      img: "app/img/anime.png"
     },
     "sticker 1": {
-      name: "Sticker 1",
+      name: "Sticker Anime",
       desc: "Sticker tahan air cocok untuk laptop & motor.",
       price: "Rp 5.000",
-      img: "app/img/logo.png"
+      img: "app/img/sticker 1.png"
     },
     "sticker 2": {
-      name: "Sticker 1",
+      name: "Sticker Anime",
       desc: "Sticker tahan air cocok untuk laptop & motor.",
       price: "Rp 5.000",
-      img: "app/img/logo.png"
+      img: "app/img/sticker 2.png"
     },
     "sticker 3": {
-      name: "Sticker 1",
+      name: "Sticker Anime",
       desc: "Sticker tahan air cocok untuk laptop & motor.",
       price: "Rp 5.000",
-      img: "app/img/logo.png"
+      img: "app/img/sticker 3.png"
     },
     "sticker 4": {
-      name: "Sticker 1",
+      name: "Sticker Anime",
       desc: "Sticker tahan air cocok untuk laptop & motor.",
       price: "Rp 5.000",
-      img: "app/img/logo.png"
+      img: "app/img/sticker 4.png"
     }
     // tambahkan semua produk lain
   };
