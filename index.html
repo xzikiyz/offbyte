@@ -24,9 +24,9 @@
 
         <!-- Menu (Desktop) -->
         <div class="hidden md:flex space-x-8">
-          <a href="#" class="text-gray-600 hover:text-blue-600 transition">Home</a>
+          <a href="index.html" class="text-gray-600 hover:text-blue-600 transition">Home</a>
           <a href="photobooth.html" class="text-gray-600 hover:text-blue-600 transition">Photobooth</a>
-          <a href="#merch" class="text-gray-600 hover:text-blue-600 transition">Mech Product</a>
+          <a href="product.html" class="hover:text-blue-600 transition">Mech Product</a>
           <a href="#contact" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
         </div>
         
@@ -41,10 +41,10 @@
 
     <!-- Menu (Mobile) -->
      <div id="mobile-menu" class="hidden md:hidden bg-white px-4 pb-4">
-        <a href="#" class="block py-2 border-b"> Home </a>
+        <a href="index.html" class="block py-2 border-b"> Home </a>
         <a href="photobooth.html" class="block py-2 border-b"> Photobooth </a>
-        <a href="#" class="block py-2 border-b"> Mech Product </a>
-        <a href="#" class="block py-2 border-b"> Contact </a>
+        <a href="product.html" class="block py-2 border-b"> Mech Product </a>
+        <a href="#contact" class="block py-2 border-b"> Contact </a>
      </div>
   </nav>
   <!-- script untuk menu dropdown mobile-menu -->
@@ -58,9 +58,9 @@
   </script>
 
   <!-- section unttuk jumbotron -->
-  <section class="relative w-[1500px] h-[600px] mt-14 mx-auto">
+  <section class="relative w-[1280px] h-[600px] mt-10 mx-auto">
   <!-- Background Image -->
-      <img src="app/img/lagi.jpg" alt="Hero Image" class="w-full h-full object-cover">
+      <img src="app/img/barengan.png" alt="Hero Image" class="w-full h-full mx-auto">
 
       <!-- Overlay semi-transparan (opsional) -->
       <div class="absolute inset-0 bg-black bg-opacity-30"></div>
@@ -129,9 +129,9 @@
       </div>
 
       <div class="bg-white shadow rounded overflow-hidden product-card" data-name = "keychain 4">
-        <img src="app/img/anime.png" alt="Product4" class="w-full h-60 object-contain mx-auto">
+        <img src="app/img/cwe 1.png" alt="Product4" class="w-full h-60 object-contain mx-auto">
         <div class="p-4 text-center">
-          <h4 class="text-lg font-semibold"> Gantungan kunci akrilik anime </h4>
+          <h4 class="text-lg font-semibold"> Gantungan kunci cewe tekkom </h4>
         </div>
       </div>
 
@@ -165,15 +165,21 @@
     </section>
     <!-- akhir dari section our product -->
 
-    <section class="bg-blue-200 w-full h-48 px-4 py-8">
-      <div class="max-w-7xl mx-auto text-center text-white">
-        <h3 class="text-2xl font-semibold mb-2"> Ingin Custom Produkmu Sendiri? </h3>
-        <p class="mb-4"> Hubungi kami untuk mendapatkan produk custom sesuai keinginanmu! </p>
-        <a href="#contact" class="bg-white hover:bg-gray-200 text-orange-900 px-5 py-2 rounded-lg font-semibold transition">
-          Hubungi Kami
-        </a>
-      </div>
-    </section>
+    <section class="bg-orange-900  w-full h-48 px-4 py-8">
+        <div class="max-w-7xl mx-auto text-center text-white">
+          <h3 class="text-2xl font-semibold mb-2"> Ingin Custom Produkmu Sendiri? </h3>
+          <p class="mb-4"> Hubungi kami untuk mendapatkan produk custom sesuai keinginanmu! </p>
+
+          <a href="https://wa.me/6281363219643 " target="_blank" 
+            class="px-5 py-2 rounded-lg font-semibold transition text-white"
+            style="background-color:#25D366;"
+            onmouseover="this.style.backgroundColor='#1ebe5d'"
+            onmouseout="this.style.backgroundColor='#25D366'">
+            <i class="fa-brands fa-whatsapp"></i> Hubungi kami
+          </a>
+
+        </div>
+      </section>
 
     <!-- button untuk melihat product  -->
      <div class="text-center mt-12 mb-12">
@@ -323,10 +329,10 @@
       img: "app/img/offbyte.png"
     },
     "keychain 4": {
-      name: "Gantungan kunci akrilik anime",
-      desc: "Keychain Keren Anime",
+      name: "Gantungan kunci akrilik cewe tekkom",
+      desc: "Keychain Keren cewe tekkom",
       price: "Rp 8.000",
-      img: "app/img/anime.png"
+      img: "app/img/cwe 1.png"
     },
     "sticker 1": {
       name: "Sticker Anime",
